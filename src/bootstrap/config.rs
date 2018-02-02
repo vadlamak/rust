@@ -81,6 +81,7 @@ pub struct Config {
     // rust codegen options
     pub rust_optimize: bool,
     pub rust_codegen_units: Option<u32>,
+    pub rust_thinlto: bool,
     pub rust_debug_assertions: bool,
     pub rust_debuginfo: bool,
     pub rust_debuginfo_lines: bool,
@@ -466,6 +467,7 @@ impl Config {
             set(&mut config.quiet_tests, rust.quiet_tests);
             set(&mut config.test_miri, rust.test_miri);
             set(&mut config.wasm_syscall, rust.wasm_syscall);
+            config.rust_thinlto = rust_thinlto.unwrap_or(true);
             config.rustc_parallel_queries = rust.experimental_parallel_queries.unwrap_or(false);
             config.rustc_default_linker = rust.default_linker.clone();
             config.musl_root = rust.musl_root.clone().map(PathBuf::from);
